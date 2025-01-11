@@ -1,0 +1,38 @@
+/* Card styling */
+.box {
+    margin-top: 10px; /* Space between TravelSearchBar and the first Box component */
+  }
+  
+  .ride-card {
+    background-color: #5d8d5f;
+    position: relative;
+    border-radius: 50px;
+    padding: 20px; /* Adjust padding to fit the card's content */
+    width: 700px;
+    height: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Add space between each card */
+   
+  }
+  
+  .ride-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    cursor: pointer;
+  }
+  
+  /* Row styling */
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  /* Ensure layout alignment */
+  .parent-container {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center; /* Center cards horizontally */
+  }
