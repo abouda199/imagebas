@@ -82,7 +82,7 @@ const Formtraje = () => {
     <div className="colored-section">
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Form Trajet</legend>
+          <legend> Trajet</legend>
           <table className="custom-table">
             <tr>
               <td className="Form-cell">
@@ -99,9 +99,10 @@ const Formtraje = () => {
                     <option value="ENISo">ENISo</option>
                     <option value="SAHLOUL">SAHLOUL</option>
                     <option value="KALLA KEBIRA">KALLA KEBIRA</option>
-                    <option value="MESTIR">MESTIR</option>
+                    <option value="monastir">monastir</option>
                     <option value="SOUSSE">SOUSSE</option>
-                    <option value="MEHDIA">MEHDIA</option>
+                    <option value="mahdia">MEHDIA</option>
+                    <option value="beja">beja</option>
                   </select>
                 </div>
               </td>
@@ -115,13 +116,14 @@ const Formtraje = () => {
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Select a destination</option>
+                    <option value="">Select destination</option>
                     <option value="ENISo">ENISo</option>
                     <option value="SAHLOUL">SAHLOUL</option>
                     <option value="KALLA KEBIRA">KALLA KEBIRA</option>
-                    <option value="MESTIR">MESTIR</option>
+                    <option value="monastir">monastir</option>
                     <option value="SOUSSE">SOUSSE</option>
                     <option value="MEHDIA">MEHDIA</option>
+                    <option value="beja">beja</option>
                   </select>
                 </div>
               </td>

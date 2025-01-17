@@ -206,7 +206,7 @@ function Header() {
         </div>
       </section>
       <footer>
-        <p>&copy; 2024 ShareMyRide. All rights reserved.</p>
+        <p>&copy; 2024-2025 ShareMyRide. All rights reserved.</p>
       </footer>
     </div>
   );

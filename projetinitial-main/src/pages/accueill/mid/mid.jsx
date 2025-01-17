@@ -1,32 +1,25 @@
-
-import"./mid.css"
-import Searshbar from '../../../Components/searshbar'
-import Box from './box/box'
-import React, { useState } from 'react';
-
-
+import React, { useState } from "react";
+import "./mid.css";
+import SearchBar from "./searchbar/searchbar";
+import Box from "./box/box";
 
 function Mid({ onSelectTrip }) {
-  const [selectedTrip, setSelectedTrip] = useState(null);
+  const [filters, setFilters] = useState({ from: "", to: "", date: "" });
+
+  const handleSearch = (criteria) => {
+    setFilters(criteria); // Met à jour les filtres
+  };
+
   return (
-    <div className='chat'>
-     <Searshbar/>
-     <br/>
-     <br/>
-     <br/>
-     <ul className='li'>
-     <li><Box onSelectTrip={onSelectTrip} /></li>
-     
-     
-     
-     
-     
-     </ul>
-     
-     
-     
+    <div className="midContainer">
+      {/* Barre de recherche */}
+      <SearchBar onSearch={handleSearch} />
+      {/* Liste des trajets */}
+      <Box onSelectTrip={onSelectTrip} filters={filters} />
+      
     </div>
-  )
+    
+  );
 }
 
-export default Mid
+export default Mid;

@@ -1,38 +1,125 @@
-/* Card styling */
-.box {
-    margin-top: 10px; /* Space between TravelSearchBar and the first Box component */
-  }
-  
-  .ride-card {
-    background-color: #5d8d5f;
-    position: relative;
-    border-radius: 50px;
-    padding: 20px; /* Adjust padding to fit the card's content */
-    width: 700px;
-    height: 150px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 20px; /* Add space between each card */
-   
-  }
-  
-  .ride-card:hover {
-    transform: scale(1.05); /* Slightly enlarge the card */
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow */
-    cursor: pointer;
-  }
-  
-  /* Row styling */
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  
-  /* Ensure layout alignment */
-  .parent-container {
-    display: flex;
-    flex-direction: column; /* Stack cards vertically */
-    align-items: center; /* Center cards horizontally */
-  }
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.trip-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.trip-card-header {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.trip-card-header .trip-time {
+  font-size: 14px;
+  color: #555;
+}
+
+.trip-card-header .trip-route {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.trip-card-header .trip-arrow {
+  margin: 0 5px;
+  color: #999;
+}
+
+.trip-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.trip-driver {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.driver-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.driver-info {
+  font-size: 14px;
+  color: #444;
+}
+
+.driver-name {
+  font-weight: bold;
+}
+
+.driver-rating {
+  font-size: 12px;
+  color: #f0c040;
+}
+
+.trip-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.status {
+  font-size: 14px;
+  color: #999;
+}
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+  max-height: 500px; /* Hauteur maximale pour la liste */
+  overflow-y: auto; /* Active le défilement vertical */
+  border: 1px solid #ddd; /* Ajout d'une bordure pour démarquer */
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Fond clair pour contraster */
+}
+
+/* Ajout d'un style personnalisé pour la scrollbar */
+.trip-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.trip-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.trip-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+.trip-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

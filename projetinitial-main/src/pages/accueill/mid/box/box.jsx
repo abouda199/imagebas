@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db , auth } from "../../../firebase"; // Import Firestore instance
-
+import { db } from "../../../firebase";
 import "./box.css";
 
-const Box = ({ onSelectTrip }) => {
+const Box = ({ onSelectTrip, filters }) => {
   const [trips, setTrips] = useState([]);
 
-  // Fetch trips from Firestore
+  // Récupération des trajets depuis Firebase
   useEffect(() => {
     const fetchTrips = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "trips"));
-        const tripsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const tripsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setTrips(tripsData);
       } catch (error) {
         console.error("Error fetching trips: ", error);
@@ -22,14 +24,25 @@ const Box = ({ onSelectTrip }) => {
     fetchTrips();
   }, []);
 
+  // Filtrage des trajets en fonction des critères
+  const filteredTrips = trips.filter((trip) => {
+    const matchesFrom =
+      !filters.from || trip.from.toLowerCase().includes(filters.from.toLowerCase());
+    const matchesTo =
+      !filters.to || trip.to.toLowerCase().includes(filters.to.toLowerCase());
+    const matchesDate = !filters.date || trip.date === filters.date;
+
+    return matchesFrom && matchesTo && matchesDate;
+  });
+
   const handleClick = (trip) => {
     onSelectTrip(trip);
   };
 
   return (
     <div className="trip-list centered">
-      {trips.length > 0 ? (
-        trips.map((trip) => (
+      {filteredTrips.length > 0 ? (
+        filteredTrips.map((trip) => (
           <div
             key={trip.id}
             className="trip-card styled-trip-card"
@@ -41,19 +54,9 @@ const Box = ({ onSelectTrip }) => {
                 <span className="trip-duration"> - {trip.duration} - </span>
                 <span>{trip.arrivalTime}</span>
               </div>
-
-
-
-              
-              <div className="">
-                <span> nbre de places {trip.places}</span>
-                
+              <div>
+                <span>nbre de places {trip.places}</span>
               </div>
-
-
-
-
-
               <div className="trip-route">
                 <span>{trip.from}</span>
                 <span className="trip-arrow">→</span>
@@ -71,6 +74,7 @@ const Box = ({ onSelectTrip }) => {
                   <span className="driver-name">{trip.name}</span>
                   <span className="driver-rating">★ {trip.rating}</span>
                 </div>
+                
               </div>
               <div className="trip-price">
                 {trip.price ? (
@@ -78,14 +82,14 @@ const Box = ({ onSelectTrip }) => {
                 ) : (
                   <span className="status">{trip.status}</span>
                 )}
-                <br></br>
+                <br />
                 <span className="status">{trip.date}</span>
               </div>
             </div>
           </div>
         ))
       ) : (
-        <p>No trips available</p>
+        <p>Aucun trajet trouvé</p>
       )}
     </div>
   );
