@@ -9,7 +9,7 @@ import Signin from "./pages/signin";
 import Login from "./pages/login";
 import Accueill from "./pages/accueill/accueil";
 import Inscrire from "./pages/inscrire";
-
+import Userinfo from "./pages/accueill/left/UserInfo/Userinfo";
 const App = () => {
   return (
     <div>
@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/accueill" element={<Accueill />} />
         <Route path="/inscrire" element={<Inscrire />} />
+        <Route path="/userinfo" element={<Userinfo />} />
       </Routes>
     </div>
   );

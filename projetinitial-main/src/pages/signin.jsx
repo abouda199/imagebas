@@ -1,45 +1,61 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import "./others/styleLS.css";
 import { auth, db } from "./firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom"; // Import pour le lien vers "Log In"
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fname, setFname] = useState("");
+  const [avatars, setAvatars] = useState([]);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      try {
+        console.log("Tentative de récupération des avatars...");
+        const docRef = doc(db, "Avatars", "default");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setAvatars(docSnap.data().urls || []);
+        } else {
+          console.error("Aucun avatar trouvé.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des avatars :", error);
+      }
+    };
+
+    fetchAvatars();
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
-      console.log(user);
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
           fullName: fname,
+          profileImage: selectedAvatar || "",
         });
+        toast.success("Utilisateur enregistré avec succès !");
       }
-      console.log("User Registred Successfully!");
-      toast.success("User Registred Successfully!!", {
-        position: "top-center",
-      });
     } catch (error) {
-      console.log(error.message);
-      toast.success(error.message, {
-        position: "bottom-center",
-      });
+      console.error("Erreur lors de l'inscription :", error);
+      toast.error(error.message);
     }
   };
+
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleRegister}>
         <h2>Sign Up</h2>
-        <label htmlFor="fname">
+        <label>
           Full Name:
           <input
             type="text"
@@ -48,34 +64,55 @@ const Signin = () => {
             required
           />
         </label>
-        <label htmlFor="email">
+        <label>
           Email:
           <input
             type="email"
-            id="email"
             placeholder="Enter your email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
-        <label htmlFor="password">
+        <label>
           Password:
           <input
             type="password"
-            id="password"
             placeholder="New password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <label htmlFor="photo">
-          Upload Photo:
-          <input type="file" id="photo" accept="image/*" />
-        </label>
+
+        {/* Section pour choisir un avatar */}
+        <div>
+          <h3>Choose an Avatar:</h3>
+          {avatars.length > 0 ? (
+            <div style={{ display: "flex", gap: "10px" }}>
+              {avatars.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`Avatar ${index}`}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    border: selectedAvatar === url ? "2px solid green" : "none",
+                  }}
+                  onClick={() => setSelectedAvatar(url)}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>Aucun avatar disponible. Veuillez vérifier vos permissions.</p>
+          )}
+        </div>
+
         <button>Sign Up</button>
-        <br />
-        <p>
-          Already Registered? <Link to="/Login">Log In</Link>
+
+        {/* Ajout du lien pour rediriger vers la page "Log In" */}
+        <p style={{ marginTop: "10px" }}>
+          Already Registered? <Link to="/login">Log In</Link>
         </p>
       </form>
     </div>

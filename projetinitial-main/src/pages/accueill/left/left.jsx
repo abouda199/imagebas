@@ -1,6 +1,7 @@
 import React from 'react'
 import"./left.css"
-import { Userinfo } from './UserInfo/Userinfo';
+import Userinfo from './UserInfo/Userinfo';
+
 
 import ChatList from './chatList/Formtraje';
 

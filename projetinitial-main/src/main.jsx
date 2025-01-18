@@ -1,28 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import React from "react";
-import ReactDOM from "react-dom";
-//import React from "react";
-//import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client"; // Utilisation de createRoot pour React 18
+import "./index.css";
+import App from "./App.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 
-ReactDOM.render(
-  <Router> 
-    <App />
-  </Router>,
-  document.getElementById("root")
-);
+const container = document.getElementById("root"); // Sélectionnez l'élément root
+const root = createRoot(container); // Initialisez React avec createRoot
 
-
-/*const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);*/
-
-
-
+  <StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </StrictMode>
+);
 
